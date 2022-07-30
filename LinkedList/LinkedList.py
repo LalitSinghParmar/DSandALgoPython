@@ -6,9 +6,11 @@ class Node:
         self.next = None
 
 class LinkedList:
+    #Initialising linked list
     def __init__(self) -> None:
         self.head = None
     
+    #Print linked list
     def printLinkedList(self)->None:
         temp = self.head
         while temp:
@@ -16,11 +18,13 @@ class LinkedList:
             temp = temp.next
         print('None')
 
+    #Add new node at front
     def addAtHead(self,data:int) -> None:
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
 
+    #Add new node at last
     def addAtLast(self,data:int) -> None:
         temp = self.head
         while temp.next:
@@ -28,6 +32,8 @@ class LinkedList:
         new_node = Node(data)
         temp.next = new_node
 
+    #Add new node at specified index iteratively
+    #if index is greater than length then it will not add
     def addAtIndex(self, index:int, data:int) -> None:
         temp = self.head
         new_node = Node(data)
@@ -43,6 +49,8 @@ class LinkedList:
             new_node.next = temp.next
             temp.next = new_node
 
+    #Add new node at specified index recursively
+    #if index is greater than length then it will not add
     def addAtIndex_rec(self, head:Node , index:int, data:int) -> Node:
         if head is None and index>0:
             return head
@@ -55,11 +63,14 @@ class LinkedList:
         head.next = new_head
         return head
 
+    #Return lenght of Linkedlist using recursion
     def length_rec(self, temp:Node) -> int:
         if temp is None:
             return 0
         return 1+self.length_rec(temp.next)
 
+    #Delete node at specified index iteratively
+    #skip if index>size of Linked list
     def deleteAtIndex(self,index:int) -> None:
         temp = self.head
         if self.head == None:
@@ -73,7 +84,8 @@ class LinkedList:
         if temp:
             temp.next = temp.next.next
 
-
+    #Delete node at specified index recursively
+    #skip if index>size of Linked list
     def deleteAtIndex_rec(self, head:Node, index:int) ->None:
         temp = head
         if head is None and index>=0:
@@ -86,8 +98,6 @@ class LinkedList:
         head.next = new_head
         return head
         
-
-
 
 ll = LinkedList()
 ll.addAtHead(1)  #1->None
