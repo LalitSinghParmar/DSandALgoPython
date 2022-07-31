@@ -1,8 +1,5 @@
 #Structure of single node
 
-from audioop import reverse
-
-
 class Node:
     def __init__(self, data:int) -> None:
         self.data = data
@@ -111,7 +108,21 @@ class LinkedList:
         curr_node.next = temp
         return temp
 
-        
+    #Reverse linked list iteratively
+    #Need 3 node pointer
+    def reverse(self) -> None:
+        if self.head == None or self.head.next == None:
+            return 
+        prev_node = None
+        curr_node = self.head
+        next_node = self.head.next
+        while next_node != None:
+            curr_node.next = prev_node
+            prev_node = curr_node
+            curr_node = next_node
+            next_node = next_node.next
+        curr_node.next = prev_node
+        self.head = curr_node
 
 ll = LinkedList()
 ll.addAtHead(1)  #1->None
@@ -144,8 +155,11 @@ ll.head = ll.deleteAtIndex_rec(ll.head, 7) #5->4->1->None
 ll.printLinkedList() #5->4->1->None
 print(ll.length_rec(ll.head)) #3
 
-ll.reverse_rec(ll.head)
-ll.printLinkedList()
+ll.reverse() #1->4->5->None
+ll.printLinkedList() #1->4->5->None
+
+ll.reverse() #5->4->1->None
+ll.printLinkedList() #5->4->1->None
 
 # node1 = Node(1)
 # node2 = Node(2)
