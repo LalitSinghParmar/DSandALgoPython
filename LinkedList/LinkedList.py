@@ -26,10 +26,13 @@ class LinkedList:
 
     #Add new node at last
     def addAtLast(self,data:int) -> None:
+        new_node = Node(data)
+        if self.head == None:
+            self.head = new_node
+            return
         temp = self.head
         while temp.next:
             temp = temp.next
-        new_node = Node(data)
         temp.next = new_node
 
     #Add new node at specified index iteratively
@@ -73,15 +76,17 @@ class LinkedList:
     #skip if index>size of Linked list
     def deleteAtIndex(self,index:int) -> None:
         temp = self.head
-        if self.head == None:
+        if self.head == None :
             return
         if index == 0:
             self.head = self.head.next
+            return
         cnt = 0
-        while cnt<index-1 and temp:
+        while cnt<index-1 and temp != None:
             temp = temp.next
             cnt += 1
-        if temp:
+        
+        if temp!= None and temp.next != None:
             temp.next = temp.next.next
 
     #Delete node at specified index recursively
@@ -124,6 +129,19 @@ class LinkedList:
         curr_node.next = prev_node
         self.head = curr_node
 
+    #Return value present at index else -1
+    def get(self, index: int) -> int:
+        curr_node = self.head
+        if self.head == None:
+            return -1
+        cnt = 0
+        while cnt<index:
+            if curr_node.next == None:
+                return -1
+            cnt += 1
+            curr_node = curr_node.next
+        return curr_node.data
+
 ll = LinkedList()
 ll.addAtHead(1)  #1->None
 ll.addAtLast(3)  #1->3->None
@@ -140,12 +158,12 @@ ll.head =ll.addAtIndex_rec(ll.head,1,2) #3->2->5->0->1->2->3->4->None
 ll.head =ll.addAtIndex_rec(ll.head,3,4) #3->2->5->4->0->1->2->3->4->None
 ll.head =ll.addAtIndex_rec(ll.head,10,10) #3->2->5->4->0->1->2->3->4->None
 ll.printLinkedList() #3->2->5->4->0->1->2->3->4->None
+
 print(ll.length_rec(ll.head)) #9
 ll.deleteAtIndex(0) #2->5->4->0->1->2->3->4->None
 ll.deleteAtIndex(7) #2->5->4->0->1->2->3->None
 ll.deleteAtIndex(3) #2->5->4->1->2->3->None
 ll.deleteAtIndex(7) #2->5->4->1->2->3->None
-ll.printLinkedList() #2->5->4->1->2->3->None
 print(ll.length_rec(ll.head)) #6
 
 ll.head =ll.deleteAtIndex_rec(ll.head, 0) #5->4->1->2->3->None
